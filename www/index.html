@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Football – Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#2BE070;--gd:#12803F;--bg:#06100B;--ink:#F4F8F5;--mut:#8FA39A;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.12);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(ellipse 60% 50% at 10% 100%,rgba(43,224,112,.28),transparent 70%),radial-gradient(ellipse 50% 40% at 90% 0,rgba(43,224,112,.12),transparent 70%),var(--bg);color:var(--ink);font-family:Inter,system-ui,"Segoe UI",sans-serif;font-weight:500;font-size:clamp(14px,1.8vw,21px);letter-spacing:-.01em}
+#app{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2vmin;padding:3vmin;text-align:center}
+.eb{color:var(--mut);letter-spacing:.28em;font-size:.78em;text-transform:uppercase}
+h1{font-size:clamp(28px,4.6vw,60px);font-weight:800;letter-spacing:-.04em;margin:0;line-height:1.05}
+h2{font-size:clamp(20px,2.8vw,38px);font-weight:800;letter-spacing:-.03em;margin:0}
+p{margin:0}.g{color:var(--g)}.m{color:var(--mut)}
+button{font:inherit;font-weight:800;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:.7em 1.2em;cursor:pointer;min-height:2.6em}
+button:focus-visible{outline:4px solid #fff;outline-offset:3px;box-shadow:0 0 28px rgba(43,224,112,.5)}
+button.go{background:linear-gradient(#3BEA80,#1CC95B);color:#04200E;border-color:transparent;box-shadow:0 0 28px rgba(43,224,112,.35)}
+button.sel{border:2px solid var(--g);background:rgba(43,224,112,.14)}
+.row{display:flex;flex-wrap:wrap;gap:1.5vmin;justify-content:center;align-items:center}
+.cards{display:flex;flex-wrap:wrap;gap:2vmin;justify-content:center}
+.pc{width:clamp(130px,17vw,220px);min-height:clamp(180px,25vw,290px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5em;border-radius:22px;padding:1em}
+.pc svg{width:62%}.pc .eb{font-size:.65em}
+.lc{width:clamp(150px,21vw,260px);align-items:flex-start;text-align:left;justify-content:flex-start}
+.bdg{background:var(--g);color:#04200E;border-radius:99px;padding:.2em .8em;font-weight:800;font-size:.8em}
+.dash{width:62%;aspect-ratio:1;border:2px dashed var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.4em;color:var(--g)}
+.jy{width:clamp(100px,15vw,190px)}
+.dots{display:flex;gap:.6em;justify-content:center}.dots i{width:.7em;height:.7em;border-radius:1em;background:#333f39}.dots i.d{background:var(--g)}.dots i.c{background:var(--g);width:2.4em}
+.wz{display:flex;gap:4vmin;align-items:center;justify-content:center;flex-wrap:wrap}
+.keys{display:grid;gap:1vmin;justify-content:center}.k10{grid-template-columns:repeat(9,minmax(0,2.6em))}.k3{grid-template-columns:repeat(3,4.2em)}
+.keys button{padding:.4em;min-height:2.3em}
+.nm{font-size:clamp(26px,4vw,50px);font-weight:800;min-height:1.3em;border-bottom:3px solid var(--gd);min-width:8em}
+input.nm{background:none;border:0;border-bottom:3px solid var(--gd);color:var(--ink);font:inherit;font-size:clamp(26px,4vw,50px);font-weight:800;text-align:center;outline:none;width:8em}
+.panel{display:flex;flex-direction:column;gap:1.4vmin;align-items:center}
+.sum{display:grid;gap:.8vmin;min-width:min(78vw,520px)}.sum div{display:flex;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.7em 1em}
+.bar{width:min(80vw,500px);height:.7em;border-radius:1em;background:rgba(255,255,255,.12);overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
+.wk{display:flex;gap:1.2vmin;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:1.2vmin 2vmin;align-items:center}
+.wk div{padding:.4em .5em;border-radius:10px;border:1px solid transparent}.wk .t{border-color:var(--g)}.wk b{display:block;font-size:.75em;color:var(--mut)}
+.dc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:1.2vmin 2vmin;max-width:32em;text-align:left}
+.tiles{display:flex;flex-wrap:wrap;gap:1.2vmin;justify-content:center}.tiles button{width:clamp(84px,11vw,136px);display:flex;flex-direction:column;gap:.3em;align-items:center;padding:.8em .4em;font-size:.9em}.tiles span{font-size:1.8em}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:1.4vmin;width:min(94vw,900px)}
+.cd{border-radius:14px;padding:.8em .5em;border:2px solid var(--line);background:var(--card);min-height:7.5em;display:flex;flex-direction:column;justify-content:center;gap:.3em}
+.cd small{font-size:.7em}
+.r-L{border-color:#F5C542;background:linear-gradient(160deg,rgba(245,197,66,.3),rgba(245,197,66,.05));box-shadow:0 0 22px rgba(245,197,66,.35)}
+.r-E{border-color:#A55BFF;background:linear-gradient(160deg,rgba(165,91,255,.3),rgba(165,91,255,.05))}.r-C{border-color:#7B8A83}
+.cd.no{opacity:.35;border-style:dashed}.cd.big{font-size:1.6em;width:min(70vw,300px);min-height:9em}
+.dg{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1.4vmin;width:min(96vw,1200px)}
+.dc2{display:flex;flex-direction:column;gap:.35em;align-items:flex-start;text-align:left;padding:.8em;font-weight:500;font-size:.9em;border-radius:16px}.dc2 b{font-size:1.1em}.dc2 svg{width:100%}
+.th{display:flex;gap:2.5vmin;align-items:center;width:min(96vw,1100px);text-align:left}
+.seg{display:flex;gap:.5em;width:min(90vw,700px)}.seg i{flex:1;height:.5em;border-radius:1em;background:#26322c}.seg i.d{background:var(--g)}.seg i.c{background:#fff}
+.chip{border:1px solid var(--line);border-radius:8px;padding:.2em .7em;font-size:.75em;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+.mw{position:relative;width:min(92vw,56vh*1.5,780px)}.mw svg{width:100%;display:block;border-radius:16px;box-shadow:0 0 50px rgba(43,224,112,.18)}
+.cdn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(80px,18vw,220px);font-weight:800;color:rgba(255,255,255,.82);text-shadow:0 0 40px rgba(43,224,112,.6);pointer-events:none}
+#fl ellipse,#fr ellipse{fill:none;stroke:#2BE070;stroke-width:3.5}#fl.on ellipse,#fr.on ellipse{fill:rgba(43,224,112,.45)}
+#fl,#fr{transition:transform .35s,opacity .2s}#mat.nb .sb,#mat.nb .gb{display:none}.cw{display:flex;flex-direction:column;gap:.35em;align-items:center}.cw .cn{font-size:.8em;line-height:1.15}.pc3{aspect-ratio:3/4;min-height:0;padding:0;overflow:hidden;align-items:center}.pc3 .ph{width:100%;height:100%;object-fit:cover}.cd.no,.cd.bk{aspect-ratio:3/4;min-height:0}.th2{display:flex;gap:4vmin;align-items:center;justify-content:center;flex-wrap:wrap}.inf{text-align:left;max-width:26em;font-size:1.15em}.inf ul{margin:.4em 0;padding-left:1.2em}.inf li{margin:.35em 0}.cw.big .pc3{width:min(55vw,300px)}.cw.big .cn{font-size:1.4em}.r-R{border-color:#4FA3FF;background:linear-gradient(160deg,rgba(79,163,255,.28),rgba(79,163,255,.05))}.cd.bk{cursor:pointer;color:var(--ink);font:inherit;border-color:#F5C542;background:linear-gradient(160deg,rgba(245,197,66,.25),rgba(245,197,66,.05));animation:bk 1.4s ease-in-out infinite}@keyframes bk{50%{transform:scale(1.05)}}.pop{animation:pop .5s}@keyframes pop{0%{transform:scale(.6) rotate(-6deg)}100%{transform:none}}
+.rw{position:relative;display:inline-flex;align-items:center;justify-content:center}.rw b{position:absolute;font-size:2.6em}
+.stt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.5em 1em;font-weight:800}.stt.go{background:var(--g);color:#04200E}
+.rt{fill:none;stroke:#22E3FF;stroke-width:10;stroke-linecap:round;opacity:0}.rt.s{opacity:1;animation:pl 1.3s ease-in-out infinite}@keyframes pl{0%,100%{opacity:1;filter:drop-shadow(0 0 10px #22E3FF)}50%{opacity:.4;filter:drop-shadow(0 0 2px #22E3FF)}}
+.rp{transform-box:fill-box;transform-origin:center;animation:rp 1.2s ease-out infinite}@keyframes rp{0%{transform:scale(.8);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+@media (prefers-reduced-motion:reduce){#fl,#fr{transition:none}.rt.s,.rp{animation:none}}
+.agr{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.2vmin;width:min(96vw,1150px)}
+.ac{font:inherit;color:var(--ink);font-weight:500;min-height:0;display:flex;flex-direction:column;align-items:center;gap:.25em;padding:.8em .5em;border-radius:16px;border:2px solid var(--line);background:var(--card);opacity:.55;text-align:center}.ac b{font-size:.92em}.ac small{font-size:.7em;color:var(--mut)}
+.ac.on{opacity:1;border-color:var(--g);background:linear-gradient(160deg,rgba(43,224,112,.22),rgba(43,224,112,.04))}.ac.nw{border-color:#F5C542;box-shadow:0 0 22px rgba(245,197,66,.45)}.ai{font-size:2em;line-height:1.2}
+.ab{display:block;width:80%;height:.4em;border-radius:1em;background:rgba(255,255,255,.12);overflow:hidden}.ab i{display:block;height:100%;background:var(--g)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const COL=[["#74ACDF","#0b2a55","","#fff"],["#FFDC02","#009C3B","#009C3B"],["#D7141A","#fff","#11457E"],["#0B2A6F","#fff","#E1000F"],["#F4F4F4","#111","#111"],["#1E5BC6","#fff","#fff"],["#FF7A00","#111","#111"],["#A6192E","#F2C230","#0B6E3B"]];
+const KITN=["Sky Stripes","Canary","Crimson","Midnight","Classic White","Azure","Orange","Ruby"];
+const LV=["Rookie","Junior","Leaguer","Striker","Legend"],TL=["Beginner","Intermediate","Hard","Expert"];
+const NUM={2:"Two",3:"Three",4:"Four",5:"Five",6:"Six"};
+const ZP={2:[65,343],3:[65,52],4:[315,52],5:[562,52],6:[562,343]};
+const BP={0:[317,322],B:[317,362],a:[262,322],c:[372,322],2:[135,332],6:[500,332],3:[135,112],5:[500,112],4:[317,112]};
+const Dr=(lv,nm,ds,tags,foot,k,z,r,sp,nb)=>({lv,nm,ds,tags,foot,k,z,r,sp,nb});
+const DR=[
+Dr(1,"Sole taps","Tap the top of the ball with your soles, alternating feet.","Ball","B","tap",[],14,650),
+Dr(1,"Left side push","Push the ball out to the left and bring it back.","Ball","L","out",[2],5,800),
+Dr(1,"Right side push","Push the ball out to the right and bring it back.","Ball","R","out",[6],5,800),
+Dr(1,"Diagonal left","Push the ball diagonally forward left and bring it back.","Ball","L","out",[3],5,850),
+Dr(1,"Diagonal right","Push the ball diagonally forward right and bring it back.","Ball","R","out",[5],5,850),
+Dr(1,"Forward and back","Push the ball straight forward and bring it back to you.","Ball","B","out",[4],6,850),
+Dr(1,"Pendulum","Pass the ball from foot to foot with the inside of your feet.","Ball","B","osc",[],12,600),
+Dr(1,"Toe taps","Touch the ball with your toes, alternating feet.","Ball","B","tap",[],14,550),
+Dr(1,"Left pendulum","Move the ball side to side with the inside of your left foot.","Ball","L","osc",[],12,650),
+Dr(1,"Right pendulum","Move the ball side to side with the inside of your right foot.","Ball","R","osc",[],12,650),
+Dr(1,"Number steps","No ball: step on 2, 3, 4, 5 and 6 in order.","Steps","B","walk",[2,3,4,5,6],3,900,1),
+Dr(1,"Steps backwards","No ball: step on 6, 5, 4, 3 and 2 in order.","Steps","B","walk",[6,5,4,3,2],3,900,1),
+Dr(1,"Side hops","No ball: hop side to side with both feet together.","Jumps","B","hop",[],12,700,1),
+Dr(1,"Quick feet","No ball: tap your toes on the spot, alternating feet.","Steps","B","tap",[],16,500,1),
+Dr(2,"Number jumps","No ball: jump with both feet on 2, 3, 4, 5 and 6.","Jumps","B","walk",[2,3,4,5,6],3,800,1),
+Dr(3,"Cross jumps","No ball: jump with both feet on 2, 5, 3, 6 and 4.","Jumps","B","walk",[2,5,3,6,4],3,700,1),
+Dr(1,"React: ball to number","A number lights up suddenly. Send the ball there and bring it back.","Reaction","B","react",[2,3,5,6],14,850),
+Dr(1,"React: step on number","No ball: a number lights up, step on it fast.","Reaction","B","rwalk",[2,3,4,5,6],24,1100,1),
+Dr(2,"React left","A number lights up on the left. Send the ball with your left and bring it back.","Reaction","L","react",[2,3,4],14,800),
+Dr(2,"React right","A number lights up on the right. Send the ball with your right and bring it back.","Reaction","R","react",[4,5,6],14,800),
+Dr(3,"Quick reaction","A number lights up suddenly. Send the ball there as fast as you can.","Reaction","B","react",[2,3,4,5,6],16,650),
+Dr(4,"Full speed reaction","Fast reactions to every number, with the ball.","Reaction","B","react",[2,3,4,5,6],20,500),
+Dr(4,"React: jumps","No ball: jump onto the lit number as fast as you can.","Reaction","B","rwalk",[2,3,4,5,6],30,800,1),
+Dr(2,"Left pull back","Pull the ball back towards you with the sole of your left foot.","Ball","L","pull",[0],6,900),
+Dr(2,"Right pull back","Pull the ball back towards you with the sole of your right foot.","Ball","R","pull",[0],6,900),
+Dr(2,"Left V-pull","Pull the ball back with your sole and push it diagonally forward with the inside.","Ball","L","v",[3],5,1000),
+Dr(2,"Right V-pull","Pull the ball back with your sole and push it diagonally forward with the inside.","Ball","R","v",[5],5,1000),
+Dr(2,"Left L-pull","Pull the ball back and push it sideways with the inside of your foot.","Ball","L","v",[2],5,1000),
+Dr(2,"Right L-pull","Pull the ball back and push it sideways with the inside of your foot.","Ball","R","v",[6],5,1000),
+Dr(2,"Criss-cross","Alternate diagonal pushes with left and right into corners 3 and 5.","Ball","B","out",[3,5],4,800),
+Dr(2,"Mat corners","Push the ball into the bottom corners 2 and 6 and always back.","Ball","B","out",[2,6],4,750),
+Dr(2,"Scissors","Step your feet around the ball, alternating sides.","Jumps","B","scis",[],12,600),
+Dr(2,"Ball jumps","Jump side to side over the ball with both feet together.","Jumps","B","hop",[],10,700),
+Dr(3,"Left inside-outside","Move the ball with the inside and outside of your left foot.","Ball","L","osc",[],12,600),
+Dr(3,"Right inside-outside","Move the ball with the inside and outside of your right foot.","Ball","R","osc",[],12,600),
+Dr(3,"Fast pendulum","Pass the ball from foot to foot as fast as you can.","Ball","B","osc",[],18,450),
+Dr(3,"Left turn","Diagonally forward, then pull the ball behind you and turn.","Ball","L","cut",[3],4,1000),
+Dr(3,"Right turn","Diagonally forward, then pull the ball behind you and turn.","Ball","R","cut",[5],4,1000),
+Dr(3,"Four corners","Visit corners 2, 3, 5 and 6 and always bring the ball back to start.","Ball","B","out",[2,3,5,6],3,800),
+Dr(3,"Corner to corner","Push the ball to corner 2, back, then to corner 6, and again.","Ball","B","out",[2,6],5,650),
+Dr(3,"Steps around the ball","Step around the ball and let it stay still.","Steps","B","ring",[],12,600),
+Dr(4,"Star","Push the ball to 2, 3, 4, 5 and 6 in order and always bring it back.","Ball","B","out",[2,3,4,5,6],2,700),
+Dr(4,"Star backwards","The same, but from six down to two.","Ball","B","out",[6,5,4,3,2],2,700),
+Dr(4,"Left four corners","Left foot only, to corners 2, 3, 5 and 6.","Ball","L","out",[2,3,5,6],3,700),
+Dr(4,"Right four corners","Right foot only, to corners 2, 3, 5 and 6.","Ball","R","out",[2,3,5,6],3,700),
+Dr(4,"Fast scissors","Step your feet around the ball as fast as you can.","Jumps","B","scis",[],20,450),
+Dr(4,"Turns to the corners","Alternate turns to 3 and 5.","Ball","B","cut",[3,5],4,900)];
+const WU=[["Ankle circles","Slowly circle each foot."],["High knees","Lift your knees high on the spot, alternating legs."],["Leg swings","Swing your leg forward and back, then switch legs."],["Light hops","Hop on the spot on your toes."],["Sole touches","Touch the ball or the floor with your sole, alternating feet."]];
+const CH=["Do 20 sole touches on the spot, as fast as you can","Keep the ball under control for 30 seconds using only your soles","10 inside-foot passes against a wall with each foot","Dribble around a cone 10 times","15 seconds of fast alternating touches","How many keep-ups can you do without dropping the ball?","10 accurate passes in a row with your weaker foot"];
+let S={players:[],pin:"1234",tempo:1,voice:true,vn:"",rate:1,vm:"intro"};
+try{Object.assign(S,JSON.parse(localStorage.getItem("trener3")||"{}"))}catch(e){}
+const save=()=>{try{localStorage.setItem("trener3",JSON.stringify(S))}catch(e){}};
+S.players.forEach(p=>{if(p.cv!==2){p.color=0;p.cv=2}});
+const app=document.getElementById("app"),$=q=>document.querySelector(q);
+let cur=null,run=0,w={},T={lv:0,ids:[],f:"All",go:[]},playing=false,paused=false,stTxt="",vfrom="p";
+const iso=(d=new Date())=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const lvl=x=>Math.floor(x/200),ttl=l=>LV[Math.min(4,Math.floor(l/8))],fs=n=>String(n),weakF=()=>cur.foot==="R"?"L":"R";
+const cap=s=>s.replace(/[^A-Za-zÀ-ž ]/g,"").replace(/  +/g," ").slice(0,12).toLowerCase().replace(/(^| )(.)/g,(m,a,b)=>a+b.toUpperCase());
+const sleep=(ms,t)=>new Promise(r=>setTimeout(()=>r(t===run),ms));
+async function wait(ms,t){let x=0;while(x<ms){await new Promise(r=>setTimeout(r,80));if(t!==run)return false;if(!paused)x+=80}return true}
+function voices(){try{const a=speechSynthesis.getVoices(),cs=a.filter(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));return cs.length?cs:a}catch(e){return[]}}
+function say(t){if(!S.voice)return;const N=window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.TextToSpeech;if(N){try{N.stop();Promise.resolve(N.speak({text:t,lang:"en-US",rate:S.rate||1,pitch:1,volume:1})).catch(()=>{})}catch(e){}return}if(!window.speechSynthesis)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=S.rate||1;const a=speechSynthesis.getVoices(),v=a.find(v=>v.name===S.vn)||a.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}}
+function setV(i){S.vn=voices()[i].name;save();say("Hi, I am your coach.");vfrom==="v"?voiceScreen():parents()}
+function vo(){const a=voices().slice(0,6);return (a.length?`<div class="m">Voice</div><div class="row">${a.map((v,i)=>`<button data-f class="${S.vn===v.name?"sel":""}" onclick="setV(${i})">${v.name.replace(/[<>]/g,"")}</button>`).join("")}</div>`:`<div class="m">This device has no other voices. On Android TV, change the voice in the text-to-speech settings.</div>`)+`<div class="row"><button data-f class="go" onclick="say('Hi, I am your coach.')">▷ Test voice</button></div>`}
+function show(h){playing=false;paused=false;const o=$("#ps");if(o)o.remove();app.innerHTML=h;const f=app.querySelector("[data-f]");if(f)f.focus()}
+function jersey(c,n){const k=COL[c]||COL[0],pid="ks"+c;return `<svg viewBox="0 0 100 100"><defs>${k[3]?`<pattern id="${pid}" width="20" height="10" patternUnits="userSpaceOnUse" patternTransform="translate(5 0)"><rect width="10" height="10" fill="${k[0]}"/><rect x="10" width="10" height="10" fill="${k[3]}"/></pattern>`:""}</defs><path d="M35 8 L16 18 L4 40 L20 48 L26 40 L26 92 L74 92 L74 40 L80 48 L96 40 L84 18 L65 8 Q50 22 35 8Z" fill="${k[3]?`url(#${pid})`:k[0]}" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>${k[2]?`<g stroke="${k[2]}" stroke-width="5" fill="none" stroke-linecap="round"><path d="M35 8Q50 22 65 8"/><path d="M4 40L20 48"/><path d="M96 40L80 48"/></g>`:""}<text x="50" y="66" text-anchor="middle" font-size="${String(n).length>1?32:38}" font-weight="800" fill="${k[1]}" font-family="Inter,sans-serif">${n}</text></svg>`}
+const keypad=()=>`<div class="keys k3">${[1,2,3,4,5,6,7,8,9,"⌫",0,"OK"].map(k=>`<button data-f data-k="${k}">${k}</button>`).join("")}</div>`;
+const ring=(id,sz)=>`<svg viewBox="0 0 120 120" width="${sz}" height="${sz}" style="border-radius:0;box-shadow:none"><circle cx="60" cy="60" r="52" fill="none" stroke="#26322c" stroke-width="9"/><circle id="${id}" cx="60" cy="60" r="52" fill="none" stroke="#2BE070" stroke-width="9" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="327" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1s linear"/></svg>`;
+const sv=()=>{if(cur.id!=="host"){const i=S.players.findIndex(x=>x.id===cur.id);if(i>=0)S.players[i]=cur}save()};
+
+/* hráči */
+function players(){run++;cur=null;try{speechSynthesis.cancel()}catch(e){}
+  show(`<div class="eb">Football · Training</div><h1>Who's <span class="g">training</span> today?</h1><div class="cards">${S.players.map(p=>`<button data-f class="pc" onclick="pick('${p.id}')">${jersey(p.color,p.num)}<b>${p.name}</b><span class="eb">${ttl(lvl(p.xp))}</span></button>`).join("")}<button data-f class="pc" onclick="newPlayer()"><div class="dash">+</div><b>New player</b></button><button data-f class="pc" onclick="host()"><div class="dash">☺</div><b>Guest</b></button></div><div class="row"><button data-f onclick="voiceScreen()">🔊 Voice</button><button data-f onclick="pin('parents')">🔒 Parents</button></div>`)}
+function pick(id){cur=S.players.find(p=>p.id===id);home()}
+function host(){cur={id:"host",name:"Guest",num:"",color:0,foot:"R",xp:0,days:{},n:0,ch:""};home()}
+const WS=["What's your name?","What's your shirt number?","Which is your stronger foot?","Pick your kit","All set, let's train!"];
+function newPlayer(){w={s:0,name:"",num:"",foot:"R",color:0};wiz()}
+function wiz(){
+  const L="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");let body="";
+  if(w.s===0)body=`<div class="panel"><input class="nm" id="nm" maxlength="12" autocomplete="off" placeholder="name" value="${w.name}"><div class="keys k10">${L.map(c=>`<button data-f data-c="${c}">${c}</button>`).join("")}</div><div class="row"><button data-f data-c=" ">space</button><button data-f data-c="⌫">⌫ delete</button></div></div>`;
+  if(w.s===1)body=`<div class="panel"><div class="nm" id="nm">${w.num||'<span class="m">number</span>'}</div>${keypad()}<button data-f onclick="w.num='';wiz()">no number</button></div>`;
+  if(w.s===2)body=`<div class="row">${[["R","Right","Right-footed"],["L","Left","Left-footed"]].map(f=>`<button data-f class="${w.foot===f[0]?"sel":""}" style="padding:1.2em 2em" onclick="w.foot='${f[0]}';wiz()">${f[1]}<br><small class="m">${f[2]}</small></button>`).join("")}</div><div class="m">Your weaker foot will get extra training.</div>`;
+  if(w.s===3)body=`<div class="row">${COL.map((c,i)=>`<button data-f class="${w.color===i?"sel":""}" onclick="w.color=${i};wiz()" style="width:5.4em">${jersey(i,"")}<br><small>${KITN[i]}</small></button>`).join("")}</div>`;
+  if(w.s===4)body=`<div class="sum"><div><span class="m">Name</span><b>${w.name}</b></div><div><span class="m">Number</span><b>${w.num||"no number"}</b></div><div><span class="m">Stronger foot</span><b>${w.foot==="R"?"Right":"Left"}</b></div></div>`;
+  show(`<div class="eb">New player · step ${w.s+1} of 5</div><h1>${WS[w.s]}</h1><div class="dots">${WS.map((_,i)=>`<i class="${i<w.s?"d":i===w.s?"c":""}"></i>`).join("")}</div><div class="wz"><div class="jy" id="jy">${jersey(w.color,w.num)}<b>${w.name}</b></div>${body}</div><div class="row"><button data-f onclick="${w.s?"w.s--;wiz()":"players()"}">↩ Back</button><button data-f class="go" onclick="wnext()">${w.s===4?"✓ Create player":"Next"}</button></div>`);
+  const upd=window.upd=()=>{$("#jy").innerHTML=jersey(w.color,w.num)+`<b>${w.name}</b>`;const n=$("#nm");if(n){if(w.s===0){if(n.value!==w.name)n.value=w.name}else n.innerHTML=w.num||'<span class="m">number</span>'}};
+  const inp=$("#nm");if(w.s===0&&inp){inp.oninput=()=>{w.name=cap(inp.value);upd()};inp.onkeydown=e=>{if(e.key==="Enter")wnext()};const k0=app.querySelector("[data-c]");if(k0)k0.focus()}
+  app.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{const c=b.dataset.c;if(c==="⌫")w.name=w.name.slice(0,-1);else w.name=cap(w.name+c);upd()});
+  if(w.s===1)app.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(k==="⌫")w.num=w.num.slice(0,-1);else if(k==="OK")return wnext();else if(w.num.length<2)w.num+=k;upd()});
+}
+function wnext(){if(w.s===0&&!w.name.trim())return;if(w.s<4){w.s++;return wiz()}
+  const p={id:"p"+Date.now(),name:w.name.trim(),num:w.num,color:w.color,cv:2,foot:w.foot,xp:0,days:{},n:0,ch:"",cards:{},warm:"",saved:[]};S.players.push(p);save();cur=p;home()}
+
+/* domů */
+function home(){run++;checkA();try{speechSynthesis.cancel()}catch(e){}
+  const p=cur,l=lvl(p.xp),pct=(p.xp-l*200)/2;
+  const d=new Date(),mon=new Date(d);mon.setDate(d.getDate()-((d.getDay()+6)%7));
+  const days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((n,i)=>{const x=new Date(mon);x.setDate(mon.getDate()+i);const k=iso(x);return {n,t:k===iso(),s:p.days[k]||0,l:x.getDate()+"/"+(x.getMonth()+1)}});
+  const doy=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5),chd=p.ch===iso();
+  const TI=[["▦","Drills","tl()"],["⚔","Match","soon('Match')"],["☰","Saved","moje()"],["🏅","Achievements"+((p.newA||[]).length?" ●":""),"achv()"],["▂▄▆","Levels","lvls()"],["👤","Profile","profile()"],["🔊","Voice","voiceScreen()"]];
+  show(`<div class="row"><button data-f onclick="players()">👥 Players</button><div class="row"><div style="width:5em">${jersey(p.color,p.num)}</div><div style="text-align:left"><div class="eb">Level ${l+1} · ${ttl(l)}</div><h1>${p.name}</h1></div></div></div>
+  <div class="bar"><i style="width:${pct}%"></i></div><div class="m">${p.xp} XP · next level in ${(l+1)*200-p.xp} XP</div>
+  <button data-f class="go" style="font-size:2em;padding:.5em 2.4em" onclick="tl()">▷ Train</button>
+  <div class="row"><div class="wk"><div style="text-align:left"><div class="eb">This week</div><b class="g">${days.filter(x=>x.s).length}</b> of 3 sessions</div>${days.map(x=>`<div class="${x.t?"t":""}"><b>${x.n}</b>${x.l}<br>${x.s?"★"+fs(x.s):"☆"}</div>`).join("")}</div>
+  <div class="dc"><div class="eb g">Daily challenge · +15 XP</div><b>${CH[doy%CH.length]}</b><br>${chd?'<span class="g">Done ✓</span>':'<button data-f onclick="chal()" style="margin-top:.5em">Done</button>'}</div></div>
+  <div class="tiles">${TI.map(t=>`<button data-f onclick="${t[2]}"><span>${t[0]}</span>${t[1]}</button>`).join("")}</div>
+  <div class="m">${(p.newA||[]).length?`<b class="g">🏅 New: ${p.newA.map(id=>(ACH.find(a=>a[0]===id)||[])[2]).filter(Boolean).slice(0,3).join(" · ")}${p.newA.length>3?" …":""}</b>`:p.n?`Sessions completed: ${p.n}`:"No sessions yet. Let's do the first one!"}</div>`)}
+function chal(){cur.ch=iso();cur.xp+=15;cur.chN=(cur.chN||0)+1;sv();home()}
+function info(t,b,back="home()"){show(`<h1>${t}</h1>${b}<button data-f class="go" onclick="${back}">Back</button>`)}
+const soon=t=>info(t,'<div class="m">Coming in the next version.</div>');
+function lvls(){const l=lvl(cur.xp);info("Levels",`<div class="sum">${LV.map((x,i)=>`<div class="${Math.min(4,Math.floor(l/8))===i?"g":""}"><b>${x}</b><span>${i<4?`level ${i*8+1}–${i*8+8}`:"level 33+"}</span></div>`).join("")}</div><div class="m">You're on level ${l+1}. Each level needs 200 XP. A finished session gives 18 XP, one ended early gives 6 XP. Every new level unlocks an achievement.</div>`)}
+function profile(){info("Profile",`<div class="jy">${jersey(cur.color,cur.num)}</div><div class="sum"><div><span class="m">Name</span><b>${cur.name}</b></div><div><span class="m">Stronger foot</span><b>${cur.foot==="R"?"Right":"Left"}</b></div><div><span class="m">XP</span><b>${cur.xp}</b></div></div>`)}
+function moje(){const s=cur.saved||[];if(!s.length)return soon("Saved (nothing saved yet)");T.go=s;show(`<h1>My drills</h1><div class="m">${s.length} saved drills</div><div class="row"><button data-f onclick="home()">↩ Back</button><button data-f class="go" onclick="begin(cur.saved)">▷ Start (${s.length})</button></div>`)}
+
+/* výběr tréninku */
+const idsOf=i=>DR.map((d,k)=>k).filter(k=>DR[k].lv===i+1);
+function tl(keep){
+  const rec=Math.min(3,Math.floor(lvl(cur.xp)/4));if(!keep){T.lv=rec;T.ids=idsOf(rec);T.f="All"}
+  show(`<div class="eb">Custom session</div><h1>Choose a <span class="g">level</span></h1><div class="cards">${TL.map((n,i)=>{const L=DR.filter(d=>d.lv===i+1),c=t=>L.filter(d=>d.tags===t).length;
+  return `<button data-f data-i="${i}" class="pc lc ${T.lv===i?"sel":""}" onclick="T.lv=${i};T.ids=idsOf(${i});tl(1)"><span class="eb">Level ${i+1}</span><h2>${n}</h2><span class="g">${"●".repeat(i+1)}${"○".repeat(3-i)}</span><b>${L.length} drills</b><span class="m">Ball ${c("Ball")} · Jumps ${c("Jumps")} · Steps ${c("Steps")} · Reaction ${c("Reaction")}</span>${i===rec?'<span class="bdg">Recommended for you</span>':""}</button>`}).join("")}</div>
+  <div class="m">Drills selected: ${T.ids.length}</div><div class="row"><button data-f onclick="home()">↩ Back</button><button data-f onclick="list()">Choose drills</button><button data-f class="go" onclick="begin(T.ids)">▷ Start (${T.ids.length})</button></div>`);
+  const e=app.querySelector(`[data-i="${T.lv}"]`);if(e)e.focus()}
+const tagS=d=>`${d.nb?"No ball · ":""}${d.tags} · ${{B:"Both feet",L:"Left foot",R:"Right foot"}[d.foot]}${d.foot===weakF()?" · Weaker foot":""}`;
+const mini=d=>{const z=["v","out","cut","walk"].includes(d.k)?d.z:[];return `<svg viewBox="0 0 600 400"><rect width="600" height="400" rx="26" fill="#141816"/>${[2,3,4,5,6].map(n=>`<rect x="${ZP[n][0]-24}" y="${ZP[n][1]-24}" width="48" height="48" rx="8" fill="${z.includes(n)?"#2BE070":"#444"}"/>`).join("")}${d.k==="walk"?"":z.map(n=>`<line x1="317" y1="322" x2="${ZP[n][0]}" y2="${ZP[n][1]}" stroke="#2BE070" stroke-width="9"/>`).join("")}${d.nb?"":'<circle cx="317" cy="322" r="30" fill="#fff"/>'}</svg>`};
+function list(){const F=T.f,L=DR.map((d,i)=>[d,i]).filter(([d])=>d.lv===T.lv+1&&(F==="All"||d.tags===F||(F==="No ball"&&d.nb)||(F==="Left foot"&&d.foot==="L")||(F==="Right foot"&&d.foot==="R")));
+  show(`<div class="eb">Drills › level ${T.lv+1}</div><h1>${TL[T.lv]} · <span class="g">${T.ids.length}</span></h1><div class="row">${["All","Ball","No ball","Reaction","Jumps","Steps","Left foot","Right foot"].map(f=>`<button data-f class="${f===F?"sel":""}" onclick="T.f='${f}';list()">${f}</button>`).join("")}</div>
+  <div class="dg">${L.map(([d,i])=>`<button data-f data-j="${i}" class="dc2 ${T.ids.includes(i)?"sel":""}" onclick="tog(${i})">${mini(d)}<span class="eb">${tagS(d)}</span><b>${d.nm}</b><span class="m">${d.ds}</span>${T.ids.includes(i)?'<span class="g">✓ selected</span>':""}</button>`).join("")}</div>
+  <div class="row"><button data-f onclick="tl(1)">↩ Levels</button><button data-f onclick="cur.saved=T.ids.slice();cur.svN=1;sv();this.textContent='✓ Saved'">✓ Save</button><button data-f class="go" onclick="begin(T.ids)">▷ Start (${T.ids.length})</button></div>`)}
+function tog(i){const k=T.ids.indexOf(i);k<0?T.ids.push(i):T.ids.splice(k,1);list();const e=app.querySelector(`[data-j="${i}"]`);if(e)e.focus()}
+
+/* rozcvička */
+function begin(ids){if(!ids.length)return;T.go=ids;if(cur.warm===iso())return runT(ids);
+  show(`<div style="width:4.5em">${jersey(cur.color,cur.num)}</div><h1>Warm up before training?</h1><p class="m">A couple of minutes to get your legs moving. You can also skip it.</p><div class="row"><button data-f class="go" onclick="warmUp()">▷ Warm up (2 min)</button><button data-f onclick="startNow()">Start training</button></div>`)}
+function startNow(){cur.warm=iso();sv();runT(T.go)}
+async function warmUp(){const tok=++run,N=24;
+  for(let i=0;i<WU.length;i++){
+    show(`<div class="eb">Warm-up · step ${i+1} of ${WU.length}</div><h1>${WU[i][0]}</h1><p class="m">${WU[i][1]}</p><div class="rw">${ring("rc",170)}<b id="rn">${N}</b></div><div class="seg">${WU.map((_,k)=>`<i class="${k<i?"d":k===i?"c":""}"></i>`).join("")}</div><button data-f onclick="run++;startNow()">Skip warm-up</button>`);
+    say(WU[i][0]);
+    for(let s=N;s>0;s--){$("#rn").textContent=s;$("#rc").style.strokeDashoffset=327*(1-s/N);if(!await sleep(1000,tok))return}
+  }
+  cur.wuN=(cur.wuN||0)+1;startNow()}
+
+/* trénink */
+const MAT=()=>`<div class="mw"><svg id="mat" viewBox="0 0 600 400"><defs><pattern id="hz" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="24" fill="#F2B80F"/><rect x="12" width="12" height="24" fill="#111"/></pattern><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="2.6" markerHeight="2.6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#F2B80F"/></marker><marker id="ahc" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="2.4" markerHeight="2.4" orient="auto"><path d="M0 0L10 5L0 10z" fill="#22E3FF"/></marker><radialGradient id="bgr" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#e4e4e4"/><stop offset="1" stop-color="#8f8f8f"/></radialGradient><polygon id="pp" points="-4,-27 4,-27 6,-19 0,-15 -6,-19" fill="#1c1c1c"/><g id="ball"><circle r="28" fill="url(#bgr)" stroke="#333" stroke-width="2"/><polygon points="0,-11 10.5,-3.4 6.5,9 -6.5,9 -10.5,-3.4" fill="#1c1c1c"/><path d="M0 -11V-15M10.5 -3.4L14.3 -4.6M6.5 9L9 12.3M-6.5 9L-9 12.3M-10.5 -3.4L-14.3 -4.6" stroke="#333" stroke-width="1.5"/><use href="#pp"/><use href="#pp" transform="rotate(72)"/><use href="#pp" transform="rotate(144)"/><use href="#pp" transform="rotate(216)"/><use href="#pp" transform="rotate(288)"/></g></defs><rect width="600" height="400" fill="#121212"/><filter id="nz"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2"/><feColorMatrix type="saturate" values="0"/></filter><rect width="600" height="400" filter="url(#nz)" opacity=".1"/><rect width="600" height="12" fill="url(#hz)"/><rect y="388" width="600" height="12" fill="url(#hz)"/><g fill="none" stroke="#7a5c00" stroke-width="11" stroke-linecap="round"><path d="M120 52H255M375 52H510M120 343H255M375 343H510M65 120V285M562 120V285M125 118L250 262M505 118L380 262M315 120V262"/></g><g fill="none" stroke="#F2B80F" stroke-width="7" stroke-linecap="round" marker-start="url(#ah)" marker-end="url(#ah)"><path d="M120 52H255M375 52H510M120 343H255M375 343H510M65 120V285M562 120V285M125 118L250 262M505 118L380 262M315 120V262"/></g>${[[2,"M255 343H120"],[3,"M256 266L125 118"],[4,"M315 258V120"],[5,"M378 266L505 118"],[6,"M375 343H510"]].map(r=>`<path id="rt${r[0]}" class="rt" d="${r[1]}" marker-end="url(#ahc)"/>`).join("")}${[2,3,4,5,6].map(n=>`<g><rect id="zr${n}" x="${ZP[n][0]-25}" y="${ZP[n][1]-25}" width="50" height="50" rx="7" fill="#E8392F"/><text x="${ZP[n][0]}" y="${ZP[n][1]+13}" text-anchor="middle" font-size="38" font-weight="800" fill="#fff" font-family="Inter,sans-serif">${n}</text></g>`).join("")}<g id="fl"><ellipse rx="11" ry="22"/></g><g id="fr"><ellipse rx="11" ry="22"/></g><g class="sb" transform="translate(317,322)"><ellipse cy="27" rx="26" ry="6" fill="rgba(0,0,0,.55)"/><use href="#ball"/></g><g id="bl" style="transform:translate(317px,322px)"><circle class="rp" r="44" fill="none" stroke="#2BE070" stroke-width="3"/><rect x="-40" y="-40" width="80" height="80" rx="12" fill="rgba(43,224,112,.18)" stroke="#2BE070" stroke-width="4" style="filter:drop-shadow(0 0 8px #2BE070)"/><use class="gb" href="#ball"/><g transform="translate(0,24)"><ellipse rx="10" ry="14" fill="rgba(6,16,11,.55)" stroke="#2BE070" stroke-width="3"/><path d="M-5 -2H5M-5 3H5M-5 8H5" stroke="#2BE070" stroke-width="2"/></g><circle cy="-42" r="12" fill="#fff"/><text id="bb" y="-37" text-anchor="middle" font-size="15" font-weight="800" fill="#111" font-family="Inter,sans-serif"></text></g></svg><div class="cdn" id="cd"></div></div>`;
+function pose(s,ms){const b=BP[s.b],bl=$("#bl");if(!bl)return;const o=s.o||0;
+  bl.style.transition=`transform ${s.q?70:Math.min(ms*.8,450)}ms ease-in-out`;bl.style.transform=`translate(${b[0]}px,${b[1]}px)`;const bb=$("#bb");if(bb)bb.textContent=s.f==="L"?"L":s.f==="R"?"R":"";[2,3,4,5,6].forEach(n=>{const r=$("#zr"+n);if(r)r.setAttribute("fill",String(s.b)===String(n)?"#1FD36A":"#E8392F")});
+  const fx=317+(b[0]-317)*.25;
+  [["fl",-30],["fr",30]].forEach(([id,dx])=>{const e=$("#"+id);e.style.transform=`translate(${fx+dx+o*50}px,372px)`;const on=s.f==="B"||(s.f==="L"&&id==="fl")||(s.f==="R"&&id==="fr");e.classList.toggle("on",!!s.f&&on);e.style.opacity=!s.f?.5:on?1:.3})}
+const FL=z=>z<4?"L":z>4?"R":null;
+function expand(d){const r=d.r,s=[];
+  for(let i=0;i<r;i++){const alt=i%2?"R":"L",k=d.k;
+    if(k==="tap")s.push({b:0,f:alt});
+    else if(k==="osc")s.push({b:i%2?"c":"a",f:d.foot==="B"?alt:d.foot});
+    else if(k==="hop")s.push({b:0,o:i%2?1:-1,f:"B"});
+    else if(k==="scis")s.push({b:0,o:i%2?1:-1,f:alt});
+    else if(k==="ring")s.push({b:0,o:[-1,0,1,0][i%4],f:alt});
+    else if(k==="walk")d.z.forEach((z,j)=>s.push({b:z,f:d.tags==="Jumps"?"B":(j%2?"R":"L")}));
+    else if(k==="react"){const z=d.z[Math.floor(Math.random()*d.z.length)],f=d.foot==="B"?(FL(z)||alt):d.foot;s.push({b:0,f,t:.5+Math.random()},{b:z,f,q:1,t:1.5},{b:0,f,t:.8})}
+    else if(k==="rwalk"){const z=d.z[Math.floor(Math.random()*d.z.length)];s.push({b:z,f:"B",q:1,t:1+Math.random()*.8})}
+    else d.z.forEach(z=>{const f=d.foot==="B"?(FL(z)||alt):d.foot,m=k==="out"?[z,0]:k==="pull"?["B",0]:k==="v"?["B",z,0]:[z,"B",0];m.forEach((b,j)=>s.push({b,f,say:j===0&&k==="out"?z:0}))})}
+  return s}
+const setSt=t=>{stTxt=t;const e=$("#st");if(e){e.textContent=t;e.className="stt"+(t.includes("Play")?" go":"")}};
+async function runT(ids){
+  const tok=++run,list=ids.map(i=>DR[i]);paused=false;
+  show(`<div class="th"><div style="width:3.4em">${jersey(cur.color,cur.num)}</div><div style="flex:1"><div class="eb" id="hd"></div><h2 id="tt"></h2><div class="row" id="ch" style="justify-content:flex-start"></div></div><div class="m" id="ds" style="flex:1.3;text-align:center;font-size:1.15em"></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6em"><div class="seg" style="width:min(30vw,260px)">${list.map((_,i)=>`<i id="sg${i}"></i>`).join("")}</div><div class="rw">${ring("hr",64)}<b id="hn" style="font-size:1.15em"></b></div></div></div>${MAT()}<div class="row" style="justify-content:space-between;width:min(96vw,1100px)"><span id="st" class="stt"></span><span class="eb m">OK = pause · Back = end</span><button onclick="pauseT()">❚❚</button><button onclick="endT()">End</button></div>`);
+  playing=true;
+  for(let di=0;di<list.length;di++){
+    const d=list[di],st=expand(d),ms=d.sp*S.tempo*[1.8,1.3,1,.9][d.lv-1];
+    $("#hd").textContent=`Drill ${di+1} of ${list.length}`;$("#tt").textContent=d.nm;$("#ds").textContent=d.ds;
+    $("#ch").innerHTML=[d.nb?"No ball":"",d.tags,{B:"Both feet",L:"Left foot",R:"Right foot"}[d.foot],d.foot===weakF()?"Weaker foot":"",S.tempo===1.4?"Slow":S.tempo===.75?"Fast":"Normal"].filter(Boolean).map(t=>`<span class="chip">${t}</span>`).join("");
+    $("#hr").style.transition="none";$("#hr").style.strokeDashoffset=0;$("#hn").textContent="";$("#mat").classList.toggle("nb",!!d.nb);[2,3,4,5,6].forEach(n=>$("#rt"+n).setAttribute("class","rt"+(["out","v","cut"].includes(d.k)&&d.z.includes(n)?" s":"")));
+    pose({b:0,f:""},500);say(d.nm+". "+d.ds);setSt("● Demo");
+    if(!await wait(Math.max(2800,(d.nm.length+d.ds.length)*70),tok))return;
+    for(const s of st.slice(0,8)){pose(s,ms*1.5);if(!await wait(ms*1.5,tok))return}
+    pose({b:0,f:""},500);
+    setSt("● Get ready");for(const n of [3,2,1]){$("#cd").textContent=n;if(!await wait(1000,tok))return}$("#cd").textContent="GO";if(!await wait(700,tok))return;
+    $("#cd").textContent="";setSt("● Play");$("#hr").style.transition="stroke-dashoffset .3s";
+    const dur=(d.foot===weakF()?45:30)*1000;let el=0;$("#hn").textContent=dur/1000;for(let i=0;el<dur;i++){const s=st[i%st.length],sm=ms*(s.t||1);pose(s,sm);
+      el+=sm;track(d,s);$("#hr").style.strokeDashoffset=327*Math.min(1,el/dur);$("#hn").textContent=Math.max(0,Math.ceil((dur-el)/1000));if(!await wait(sm,tok))return}
+    $("#sg"+di).className="d";drillDone(d,ids[di]);
+  }
+  finish(true)}
+function pauseT(){if(!playing||paused)return;paused=true;const o=document.createElement("div");o.id="ps";o.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;flex-direction:column;gap:2.5vmin;align-items:center;justify-content:center;z-index:9";o.innerHTML='<h1>Paused</h1><div class="row"><button data-f class="go" onclick="resume()">▷ Resume</button><button data-f onclick="endT()">End</button></div>';document.body.appendChild(o);o.querySelector("[data-f]").focus()}
+function resume(){paused=false;const o=$("#ps");if(o)o.remove()}
+function endT(){if(!playing)return;const o=$("#ps");if(o)o.remove();paused=false;run++;finish(false)}
+/* PIN a rodiče */
+function pin(mode){let v="";show(`<h1>${mode==="parents"?"Enter PIN":"New PIN (4 digits)"}</h1><div class="nm" id="pv">&nbsp;</div><div class="m" id="pm"></div>${keypad()}<button data-f onclick="${mode==="parents"?"players()":"parents()"}">Back</button>`);
+  app.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const k=b.dataset.k;
+    if(k==="⌫")v=v.slice(0,-1);else if(k==="OK"){
+      if(mode==="parents"){if(v===S.pin)return parents();v="";$("#pm").textContent="Wrong PIN."}
+      else if(v.length===4){S.pin=v;save();return parents()}else $("#pm").textContent="The PIN must have 4 digits."
+    }else if(v.length<4)v+=k;
+    $("#pv").textContent="●".repeat(v.length)||" "})}
+function parents(){vfrom="p";const o=(l,it)=>`<div class="m">${l}</div><div class="row">${it.map(i=>`<button data-f class="${i[0]?"sel":""}" onclick="${i[2]}">${i[1]}</button>`).join("")}</div>`;
+  show(`<h1>For parents</h1>${o("Tempo",[[S.tempo===1.4,"Slow","S.tempo=1.4;save();parents()"],[S.tempo===1,"Normal","S.tempo=1;save();parents()"],[S.tempo===.75,"Fast","S.tempo=.75;save();parents()"]])}${o("Coach voice",[[S.voice,"On","S.voice=true;save();parents()"],[!S.voice,"Off","S.voice=false;save();parents()"]])}${o("Voice speed",[[S.rate===.8,"Slow","S.rate=.8;save();parents()"],[S.rate===1||!S.rate,"Normal","S.rate=1;save();parents()"],[S.rate===1.2,"Fast","S.rate=1.2;save();parents()"]])}${vo()}
+  <div class="row"><button data-f onclick="pin('new')">Change PIN</button><button data-f class="go" onclick="players()">Done</button></div>${S.players.length?`<div class="m">Delete a player</div><div class="row">${S.players.map(p=>`<button data-f onclick="delAsk('${p.id}')">${p.name} ✕</button>`).join("")}</div>`:""}`)}
+
+document.addEventListener("keydown",e=>{
+  if(playing&&!paused){if(e.key==="Enter"||e.key===" "){e.preventDefault();pauseT()}else if(["Escape","Backspace","GoBack"].includes(e.key))endT();return}
+  if(playing&&["Escape","Backspace","GoBack"].includes(e.key)){e.preventDefault();return resume()}
+  const D=({ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]})[e.key];
+  const nmOn=w&&w.s===0&&$("#nm");
+  if(nmOn&&e.target.tagName!=="INPUT"&&!e.ctrlKey&&!e.metaKey&&!e.altKey){
+    if(e.key.length===1&&/[A-Za-zÀ-ž ]/.test(e.key)&&!(e.key===" "&&e.target.tagName==="BUTTON")){e.preventDefault();w.name=cap(w.name+e.key);return window.upd()}
+    if(e.key==="Backspace"){e.preventDefault();w.name=w.name.slice(0,-1);return window.upd()}}
+  if(D&&e.target.tagName==="INPUT"&&D[0])return;
+  if(D){e.preventDefault();const els=[...document.querySelectorAll("[data-f]")],c=document.activeElement;
+    if(!els.includes(c)){if(els[0])els[0].focus();return}
+    const r=c.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;let b=null,bs=1e9;
+    for(const el of els){if(el===c)continue;const q=el.getBoundingClientRect(),dx=q.left+q.width/2-cx,dy=q.top+q.height/2-cy,al=D[0]?dx*D[0]:dy*D[1],ac=D[0]?Math.abs(dy):Math.abs(dx);if(al>4){const s=al+2*ac;if(s<bs){bs=s;b=el}}}
+    if(b)b.focus();
+  }else if(e.key==="Escape"||e.key==="Backspace"||e.key==="GoBack"){if(e.target.tagName!=="INPUT"){cur?home():players()}}
+});
+/* achievements: one for every level + ones the app notices you earned */
+const LA=["Kick-Off","Ball Buddy","First Touch","Close Control","Quick Feet","Playmaker","Dribbler","Skill School","Super Baller","Nutmeg Ninja","Street Baller","Rising Star","Wing Wizard","Box-to-Box","Silky Touch","Sharp Shooter","Magic Feet","Tiki-Taka","Rocket Feet","Top Bin","Derby Hero","Hat-Trick Hero","Midfield Maestro","Ball Whisperer","Skill King","Crowd Pleaser","Captain","Pro Prospect","First Team","Fan Favourite","Club Legend","International","Record Breaker","World Class","Golden Feet","Trophy Hunter","Hall of Famer","Football Royalty","Living Legend","The GOAT"];
+const ST=p=>p.st=p.st||{k:{},t:0,weak:0,nb:0,drills:0,ids:{},exp:0};
+const wkKey=d=>{const m=new Date(d);m.setDate(d.getDate()-((d.getDay()+6)%7));return iso(m)};
+const dayList=p=>Object.keys(p.days||{}).filter(k=>p.days[k]>0).sort();
+const maxWk=p=>Math.max(0,...Object.values(p.wk||{}));
+const maxWkDays=p=>{const c={};dayList(p).forEach(k=>{const w=wkKey(new Date(k+"T12:00"));c[w]=(c[w]||0)+1});return Math.max(0,...Object.values(c))};
+const streak=p=>{let b=0,r=0,prev=null;dayList(p).forEach(k=>{const d=new Date(k+"T12:00");r=prev&&Math.round((d-prev)/864e5)===1?r+1:1;prev=d;b=Math.max(b,r)});return b};
+const weekend=p=>{const s=new Set(dayList(p));return [...s].some(k=>{const d=new Date(k+"T12:00");if(d.getDay()!==6)return false;const n=new Date(d);n.setDate(d.getDate()+1);return s.has(iso(n))})?1:0};
+const K=(...ks)=>p=>ks.reduce((a,k)=>a+(ST(p).k[k]||0),0),SV=f=>p=>ST(p)[f]||0,PV=f=>p=>p[f]||0;
+const AC=[
+["s1","⚽","First Whistle","Finish your first session",PV("n"),1],
+["s5","🥅","Warming Up","Finish 5 sessions",PV("n"),5],
+["s10","📅","Regular","Finish 10 sessions",PV("n"),10],
+["s25","💪","Dedicated","Finish 25 sessions",PV("n"),25],
+["s50","🏟️","Club Player","Finish 50 sessions",PV("n"),50],
+["s100","💯","Centurion","Finish 100 sessions",PV("n"),100],
+["w3","🎩","Hat-Trick Week","3 sessions in one week",maxWk,3],
+["w5","🔥","Five a Week","5 sessions in one week",maxWk,5],
+["wd7","🗓️","Perfect Week","Train on all 7 days of a week",maxWkDays,7],
+["k3","⚡","On Fire","Train 3 days in a row",streak,3],
+["k7","🚀","Unstoppable","Train 7 days in a row",streak,7],
+["k14","🛡️","Iron Will","Train 14 days in a row",streak,14],
+["we","🏖️","Weekend Warrior","Train on Saturday and Sunday of the same weekend",weekend,1],
+["pb50","↩️","Pull-Back Pro","50 pull-backs",K("pull"),50],
+["pb250","🧲","Drag-Back Master","250 pull-backs",K("pull"),250],
+["v50","✌️","V-Shape","50 V- and L-pulls",K("v"),50],
+["o100","🎯","Pass Master","100 pushes to the numbers",K("out"),100],
+["o500","🔭","Laser Passer","500 pushes to the numbers",K("out"),500],
+["r50","👀","Quick Reflexes","50 reactions to a lit number",K("react","rwalk"),50],
+["r250","⚡","Lightning","250 reactions to a lit number",K("react","rwalk"),250],
+["os100","⏱️","Metronome","100 pendulum touches",K("osc"),100],
+["tp200","👟","Happy Feet","200 taps",K("tap"),200],
+["j100","🦘","Springs","100 jumps and scissors",K("hop","scis"),100],
+["c30","🌀","Turn Artist","30 turns",K("cut"),30],
+["t1k","🎖️","1,000 Touches","1,000 ball touches",SV("t"),1000],
+["t5k","🏅","5,000 Touches","5,000 ball touches",SV("t"),5000],
+["t10k","👑","Master Baller","10,000 ball touches",SV("t"),10000],
+["wf10","🦶","Two-Footed","10 drills with your weaker foot",SV("weak"),10],
+["wf50","🤹","Ambidextrous","50 drills with your weaker foot",SV("weak"),50],
+["nb20","🕺","Footwork King","20 drills without the ball",SV("nb"),20],
+["wu5","🧘","Pro Habits","Do the warm-up 5 times",PV("wuN"),5],
+["ch1","🎲","Challenger","Complete a daily challenge",PV("chN"),1],
+["ch10","🏆","Challenge Accepted","Complete 10 daily challenges",PV("chN"),10],
+["ex1","🧠","Expert Mode","Finish an Expert drill",SV("exp"),1],
+["fast","💨","Speed Demon","Finish a session on Fast tempo",PV("fast"),1],
+["eb","🌅","Early Bird","Finish a session before 8 am",PV("early"),1],
+["no","🌙","Night Owl","Finish a session after 8 pm",PV("late"),1],
+["sv","📋","Coach Mode","Save your own drill list",PV("svN"),1],
+["all","📚","Collector","Play every drill at least once",p=>Object.keys(ST(p).ids).length,0]];
+const ACH=[...LA.map((n,i)=>["L"+(i+2),"⭐",n,`Reach level ${i+2}`,p=>lvl(p.xp)+1,i+2]),...AC];
+ACH[ACH.length-1][5]=DR.length;
+function checkA(){const p=cur;if(!p)return[];p.ach=p.ach||{};const got=ACH.filter(a=>!p.ach[a[0]]&&a[4](p)>=a[5]);got.forEach(a=>p.ach[a[0]]=iso());if(got.length){p.newA=[...(p.newA||[]),...got.map(a=>a[0])];sv()}return got}
+function track(d,s){const t=ST(cur);if(["tap","osc","hop","scis","ring"].includes(d.k)||s.b!==0)t.k[d.k]=(t.k[d.k]||0)+1;if(!d.nb)t.t++}
+function drillDone(d,i){const t=ST(cur);t.drills++;if(d.foot===weakF())t.weak++;if(d.nb)t.nb++;if(d.lv===4)t.exp++;t.ids[i]=1}
+const badge=(a,on,nw)=>{const v=Math.min(a[5],a[4](cur));return `<button data-f class="ac${on?" on":""}${nw?" nw":""}"><span class="ai">${on?a[1]:"🔒"}</span><b>${a[2]}</b><small>${a[3]}</small>${on?"":`<small class="m">${a[0][0]==="L"?`level ${lvl(cur.xp)+1} / ${a[5]}`:`${v.toLocaleString("en")} / ${a[5].toLocaleString("en")}`}</small><i class="ab"><i style="width:${100*v/a[5]}%"></i></i>`}</button>`};
+function achv(){const p=cur,a=p.ach||{},nw=p.newA||[],have=ACH.filter(x=>a[x[0]]).length;p.newA=[];sv();
+  const sec=(t,L)=>`<div class="eb" style="margin-top:.8em">${t} · ${L.filter(x=>a[x[0]]).length}/${L.length}</div><div class="agr">${L.map(x=>badge(x,a[x[0]],nw.includes(x[0]))).join("")}</div>`;
+  show(`<h1>Achievements</h1><div class="m">You have <b class="g">${have}</b> of ${ACH.length}. Every new level unlocks one, and the app spots the rest as you train.</div>${sec("Level badges",ACH.slice(0,LA.length))}${sec("Challenges",AC)}<button data-f class="go" onclick="home()">Back</button>`)}
+function finish(full){
+  const st=full?3:1.5,l0=lvl(cur.xp),gain=full?18:6;cur.days[iso()]=Math.max(cur.days[iso()]||0,st);cur.xp+=gain;
+  if(full){cur.n++;const wk=wkKey(new Date());cur.wk=cur.wk||{};cur.wk[wk]=(cur.wk[wk]||0)+1;const h=new Date().getHours();if(h<8)cur.early=1;if(h>=20)cur.late=1;if(S.tempo===.75)cur.fast=1}
+  const l1=lvl(cur.xp),got=checkA();sv();say(got.length?"Achievement unlocked! "+got[0][2]:full?"Done!":"Session ended");
+  show(`<h1>${full?"Done!":"Session ended"}</h1><h2>${"★".repeat(Math.floor(st))}${st%1?"½":""} · ${fs(st)} of 3</h2><div class="m">+${gain} XP${l1>l0?` · New level ${l1+1}!`:""}</div>${got.length?`<div class="eb g">🏅 Achievement${got.length>1?"s":""} unlocked!</div><div class="agr">${got.slice(0,4).map(a=>badge(a,1,1)).join("")}</div>`:""}<div class="row">${got.length?`<button data-f onclick="achv()">🏅 All achievements</button>`:""}<button data-f class="go" onclick="home()">${full?"Great":"Home"}</button></div>`)}
+function delAsk(id){const p=S.players.find(x=>x.id===id);if(!p)return parents();show(`<h1>Delete player ${p.name}?</h1><div class="m">Their progress, XP and cards will be deleted too. This can't be undone.</div><div class="row"><button data-f onclick="parents()">No, keep</button><button data-f class="go" onclick="delDo('${id}')">Yes, delete</button></div>`)}
+function delDo(id){S.players=S.players.filter(x=>x.id!==id);save();parents()}
+function voiceScreen(){vfrom="v";const o=(l,it)=>`<div class="m">${l}</div><div class="row">${it.map(i=>`<button data-f class="${i[0]?"sel":""}" onclick="${i[2]}">${i[1]}</button>`).join("")}</div>`;
+  show(`<h1>Coach voice</h1>${o("Voice",[[S.voice,"On","S.voice=true;save();voiceScreen()"],[!S.voice,"Off","S.voice=false;save();voiceScreen()"]])}${o("Speed",[[S.rate===.8,"Slow","S.rate=.8;save();voiceScreen()"],[S.rate===1||!S.rate,"Normal","S.rate=1;save();voiceScreen()"],[S.rate===1.2,"Fast","S.rate=1.2;save();voiceScreen()"]])}${vo()}<button data-f onclick="${cur?"home()":"players()"}">↩ Back</button>`)}
+try{const A=window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.App;if(A)A.addListener("backButton",()=>{if(!playing&&!cur&&/training today/.test(app.textContent))A.exitApp();else document.dispatchEvent(new KeyboardEvent("keydown",{key:"Escape"}))})}catch(e){}
+players();
+</script>
+</body>
+</html>
